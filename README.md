@@ -13,6 +13,7 @@ git clone https://github.com/iamboisov/octopar.git
 ```
 git push -u origin <название-ветки>
 ```
+Ключ -u один раз, потом не надо его использовать
 
 ### Слияние
 Переключаемся на основную ветку
