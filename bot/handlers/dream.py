@@ -7,7 +7,7 @@ import os
 import time
 
 GIGACHAT_KEY = os.getenv('GIGACHAT_API_KEY')
-
+# 
 router = Router()
 
 

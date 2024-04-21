@@ -24,3 +24,5 @@ git checkout main
 ```
 git merge <название-личной-ветки>
 ```
+
+<!--  -->

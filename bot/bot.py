@@ -7,7 +7,7 @@ from handlers import dream
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 logging.basicConfig(level=logging.INFO)
-    
+    # 
 async def main():
     bot = Bot(token=BOT_TOKEN)
     dp = Dispatcher()
