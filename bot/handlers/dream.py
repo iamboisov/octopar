@@ -17,7 +17,7 @@ async def start(message: types.Message):
 
 @router.message(F.text)
 async def send_answer(message: Message):
-    for x in range(5):
+    for x in reversed(range(5)):
         time.sleep(1)
         await message.answer(f"Толкую...{x}")
     chat = GigaChat(credentials=GIGACHAT_KEY, verify_ssl_certs=False)
