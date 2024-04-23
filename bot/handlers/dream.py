@@ -31,6 +31,9 @@ async def start(message: types.Message):
     await db.update_user(user_id, name, telegram_username)
 
 
+
+
+
 # Сообщение от пользователя
 @router.message(F.text)
 async def send_answer(message: Message):
@@ -50,4 +53,6 @@ async def send_answer(message: Message):
     # messages.append(res)
     print(res.content)
     await message.answer(res.content)
+
+    # Удаляем лоадер
     await bot.delete_message(chat_id=message.chat.id, message_id=sent_message.message_id)
