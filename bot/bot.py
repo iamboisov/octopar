@@ -1,15 +1,14 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
-import os
 from handlers import dream
-
-BOT_TOKEN = os.getenv('BOT_TOKEN')
+import api_keys_import as KEYS
 
 logging.basicConfig(level=logging.INFO)
-    # 
+
+
 async def main():
-    bot = Bot(token=BOT_TOKEN)
+    bot = Bot(token=KEYS.BOT_TOKEN)
     dp = Dispatcher()
     dp.include_router(dream.router)
     await bot.delete_webhook(drop_pending_updates=True)
