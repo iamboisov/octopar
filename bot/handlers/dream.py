@@ -37,6 +37,9 @@ async def start(message: types.Message):
 # Сообщение от пользователя
 @router.message(F.text)
 async def send_answer(message: Message):
+
+    # Лоадер
+    sent_message = await message.answer(f"Толкую...⏳")
     for x in range(5):
         time.sleep(1)
 
