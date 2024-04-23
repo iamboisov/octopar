@@ -2,7 +2,7 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher
 import os
-from handlers import dream
+from handlers import dream, users_tracker
 import api_keys_import as KEYS
 
 logging.basicConfig(level=logging.INFO)
