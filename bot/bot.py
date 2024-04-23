@@ -1,8 +1,10 @@
 import asyncio
 import logging
 from aiogram import Bot, Dispatcher
-from handlers import dream
-import api_keys_import as KEYS
+import os
+from handlers import dream, users_tracker
+
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 logging.basicConfig(level=logging.INFO)
 
@@ -10,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 async def main():
     bot = Bot(token=KEYS.BOT_TOKEN)
     dp = Dispatcher()
-    dp.include_router(dream.router)
+    dp.include_routers(dream.router, users_tracker.router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
