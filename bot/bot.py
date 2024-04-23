@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.INFO)
 async def main():
     bot = Bot(token=KEYS.BOT_TOKEN)
     dp = Dispatcher()
-    dp.include_routers(dream.router, users_tracker.router)
+    dp.include_routers(users_tracker.router, dream.router)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 

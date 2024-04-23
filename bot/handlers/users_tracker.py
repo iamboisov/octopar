@@ -9,9 +9,10 @@ import time
 router = Router()
 
 
-@router.message(Command("adminstats"))
+@router.message(Command("adminstats", prefix="%"))
 async def check_stats(message: types.Message):
-    if message.from_user.id in (5233833942):
-        await message.answer("Привет, Амир!")
+    if message.from_user.id == 5233833942:
+        await message.answer("Привет, !")
     else:
         await message.answer("Ты не админ!")
+
