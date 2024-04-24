@@ -39,6 +39,15 @@ async def start(message: types.Message):
 async def send_answer(message: Message):
     # Лоадер
     sent_message = await message.answer(f"Толкую...⏳")
+
+    # Получаем данные пользователя
+    user_id = message.chat.id
+    name = message.from_user.first_name
+    telegram_username = message.from_user.username
+    # Обновляем данные пользователя (last seen)
+    await db.update_user(user_id, name, telegram_username)
+
+    # Ожидание результата
     for x in range(5):
         time.sleep(1)
 
@@ -50,9 +59,7 @@ async def send_answer(message: Message):
         ),
         HumanMessage(content=message.text)
     ]
-    # messages.append()
     res = gigachat(messages)
-    # messages.append(res)
     print(res.content)
     await message.answer(res.content)
 

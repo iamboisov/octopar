@@ -12,6 +12,7 @@ async def add_user(user_id, username, telegram_username):
     user_data = {
         "_id": user_id,
         "name": str(username),
+        "first_seen": str(date),
         "last_seen": str(date),
         "telegram_username": "@" + str(telegram_username) if telegram_username else None
     }
