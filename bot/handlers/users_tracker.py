@@ -57,11 +57,11 @@ async def active_users_day():
 async def check_stats(message: Message):
     if message.from_user.id in (5233833942, 980315710):
         await message.answer(
-            "Привет, Админ! \n"\
-            f"Кол-во пользователей запустили бот: {await users_all()}\n"\
-            f"Кол-во пользователей за {datetime.now().month} месяц года: {await users_month()}\n"\
-            f"Кол-во регистраций сегодня: {await users_day()}\n"\
-            f"Кол-во активных пользователей сегодня: {await active_users_day()}"\
+            "Привет, Админ!\n"\
+            f"Регистраций (всего): {await users_all()}\n"\
+            f"Пользователей за {datetime.now().month} месяц года: {await users_month()}\n"\
+            f"Регистраций сегодня: {await users_day()}\n"\
+            f"Активных пользователей сегодня: {await active_users_day()}"\
             )
     else:
         await message.answer("Ты не админ!")
