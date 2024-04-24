@@ -20,9 +20,9 @@ async def users_all():
 
 # Кол-во регистраций с начала месяца
 async def users_month():
-    start_of_month = datetime(datetime.now().year, datetime.now().month, 1).date()
+    start_of_month = datetime(datetime.now().year, datetime.now().month, 1)
     print(start_of_month)
-    query = {"first_seen": {"$gte": str(start_of_month)}}
+    query = {"first_seen": {"$gte": start_of_month}}
     month_users = collection.find(query)
     result = list()
     async for user in month_users:
@@ -32,8 +32,9 @@ async def users_month():
 
 # Кол-во регистраций сегодня
 async def users_day():
-    today = datetime.now().date()
-    query = {"first_seen": {"$eq": str(today)}}
+    start_date = datetime(datetime.now().year, datetime.now().month, datetime.now().day, 0, 0, 0)
+    end_date = datetime(datetime.now().year, datetime.now().month, datetime.now().day, 23, 59, 59)
+    query = {"first_seen": {"$gte": start_date, "$lte": end_date}}
     month_users = collection.find(query)
     result = list()
     async for user in month_users:
@@ -43,8 +44,9 @@ async def users_day():
 
 # Кол-во использований сегодня
 async def active_users_day():
-    today = datetime.now().date()
-    query = {"last_seen": {"$eq": str(today)}}
+    start_date = datetime(datetime.now().year, datetime.now().month, datetime.now().day, 0, 0, 0)
+    end_date = datetime(datetime.now().year, datetime.now().month, datetime.now().day, 23, 59, 59)
+    query = {"last_seen": {"$gte": start_date, "$lte": end_date}}
     month_users = collection.find(query)
     result = list()
     async for user in month_users:
