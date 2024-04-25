@@ -6,11 +6,12 @@ from langchain.chat_models.gigachat import GigaChat
 import time
 import api_keys_import as KEYS
 import db_functions.crud as db
+import asyncio
 
 
 router = Router()
 bot = Bot(token=KEYS.BOT_TOKEN)
-
+MIN_LENGTH = 140
 
 # Первый запуск бота
 @router.message(Command("start"))
@@ -31,37 +32,29 @@ async def start(message: types.Message):
     await db.update_user(user_id, name, telegram_username)
 
 
-
-
-
 # Сообщение от пользователя
 @router.message(F.text)
 async def send_answer(message: Message):
-    # Лоадер
     sent_message = await message.answer(f"Толкую...⏳")
-
-    # Получаем данные пользователя
     user_id = message.chat.id
     name = message.from_user.first_name
     telegram_username = message.from_user.username
-    # Обновляем данные пользователя (last seen)
     await db.update_user(user_id, name, telegram_username)
 
-    # Ожидание результата
-    for x in range(5):
-        time.sleep(1)
+    await asyncio.sleep(4)
 
-    # Запрос к Гигачату
     gigachat = GigaChat(credentials=KEYS.GIGACHAT_KEY, verify_ssl_certs=False)
     messages = [
-        SystemMessage(
-            content="Перефразируй и напиши 3 детальных толкования сна. В конце укажи '🔮 Предсказание:' и напиши необычное предсказание на неделю."
-        ),
+        SystemMessage(content="Перефразируй и напиши 3 детальных толкования сна. В конце укажи '🔮 Предсказание:' и напиши необычное предсказание на неделю."),
         HumanMessage(content=message.text)
     ]
     res = gigachat(messages)
     print(res.content)
-    await message.answer(res.content)
 
-    # Удаляем лоадер
+    if len(res.content) < MIN_LENGTH:
+        await message.answer("Мы придерживаемся политики, которая запрещает: Насилие, Оскорбления, Открытая Сексуализация.\n\nСтарайтесь избегать слов, которые содержат оскорбительный характер. \n\nСпасибо за понимание!🐑")
+    else:
+        await message.answer(res.content)
+
+    await bot.delete_message(chat_id=message.chat.id, message_id=sent_message.message_id)
     await bot.delete_message(chat_id=message.chat.id, message_id=sent_message.message_id)

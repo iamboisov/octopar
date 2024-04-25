@@ -1,3 +1,6 @@
+from dotenv import load_dotenv
+load_dotenv()
+
 import os
 
 MONGODB_URI = os.getenv('MONGODB_URI')

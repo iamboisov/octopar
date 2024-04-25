@@ -3,3 +3,4 @@ venv/
 bot/__pycache__
 bot/handlers/__pycache__
 bot/db_functions/__pycache__
+MongoFile(Test for Deploy).py
