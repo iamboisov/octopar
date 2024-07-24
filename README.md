@@ -2,9 +2,6 @@
 
 Describe your dream and receive an interpretation. Artificial Intelligence takes care of everything.
 
-### How It Works
-
-Simply provide a description of your dream, and our AI will analyze and interpret it for you, giving insights into possible meanings and symbolism.
 
 ### Requirements
 
